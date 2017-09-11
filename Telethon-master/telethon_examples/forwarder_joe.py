@@ -50,7 +50,6 @@ def bytes_to_string(byte_count):
 class InteractiveTelegramClient(TelegramClient):
     """Full featured Telegram client, meant to be used on an interactive
        session to see what Telethon is capable off -
-
        This client allows the user to perform some basic interaction with
        Telegram through Telethon, such as listing dialogs (open chats),
        talking to people, downloading media, and receiving updates.
@@ -232,19 +231,12 @@ class InteractiveTelegramClient(TelegramClient):
 
     @staticmethod
     def update_handler(update_object):
+        inf=True
         if isinstance(update_object, UpdateShortMessage):
             if update_object.out:
-                sprint('You sent {} to user #{}'.format(
-                    update_object.message, update_object.user_id))
-            else:
-                sprint('[User #{} sent {}]'.format(
-                    update_object.user_id, update_object.message))
-
+                inf=True
         elif isinstance(update_object, UpdateShortChatMessage):
             if update_object.out:
-                sprint('You sent {} to chat #{}'.format(
-                    update_object.message, update_object.chat_id))
+                inf=False
             else:
-                sprint('[Chat #{}, user #{} sent {}]'.format(
-                       update_object.chat_id, update_object.from_id,
-                       update_object.message))
+                inf=False
