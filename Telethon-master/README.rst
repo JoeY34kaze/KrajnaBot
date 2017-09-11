@@ -7,34 +7,30 @@ Telethon
 **Telethon** is Telegram client implementation in **Python 3** which uses
 the latest available API of Telegram. Remember to use **pip3** to install!
 
-Installing
-----------
 
-.. code:: sh
+Installing Telethon
+-------------------
+Installing Telethon via pip
 
-  pip install telethon
+On a terminal, issue the following command:
 
+sudo -H pip install telethon
+If you get something like "SyntaxError: invalid syntax" on the from error line, it's because pip defaults to Python 2. Use pip3 instead.
 
+If you already have Telethon installed, upgrade with pip install --upgrade telethon!
 
+Installing Telethon manually
 
-Doing stuff
------------
-
-.. code:: python
-
-  print(me.stringify())
-
-  client.send_message('username', 'Hello! Talking to you from Telethon')
-  client.send_file('username', '/home/myself/Pictures/holidays.jpg')
-
-  client.download_profile_photo(me)
-  total, messages, senders = client.get_message_history('username')
-  client.download_media(messages[0])
+Install the required pyaes and rsa modules: sudo -H pip install pyaes rsa (GitHub, package index)
+Clone Telethon's GitHub repository: git clone https://github.com/LonamiWebs/Telethon.git
+Enter the cloned repository: cd Telethon
+Run the code generator: python3 setup.py gen_tl
+Done!
+To speed up the crypto part of Telethon, you should also install sympy and libssl on your computer. This step is optional.
 
 
-Next steps
-----------
 
-Once you've decided that you like the way Telethon looks and feel comfortable
-with this code, go ahead and read the full
-`README <https://github.com/LonamiWebs/Telethon/blob/HEAD/README-long.rst>`_ :)
+-------------
+Running the bot
+- once telethom is working run it with
+- python startBot.py
