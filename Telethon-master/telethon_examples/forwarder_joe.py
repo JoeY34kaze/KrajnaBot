@@ -8,8 +8,7 @@ from telethon.utils import get_display_name
 import time
 
 
-#from1=1130120557
-from1=383204037
+from1=1130120557
 from2=1145370905
 
 from1ID=0
