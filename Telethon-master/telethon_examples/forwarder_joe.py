@@ -9,20 +9,16 @@ import time
 from datetime import datetime
 
 msgToSend=None
-#from1=1130120557
-#krajna-tesko je
-#from1=1106009365
-#from1 = 1118092698
-from1=1134996697
-from2=1145370905
+from1=1130120557 #subodh
+#from1=1134996697 #test
+from2=1145370905 #whales
 
 from1ID=0
 from2ID=0
 
 
-#to1=1123059821
-to1=348509442
-#simke
+to1=1123059821
+
 to1ID=0
 to1hash=-5299655350369332983
 
