@@ -190,7 +190,12 @@ class InteractiveTelegramClient(TelegramClient):
     @staticmethod
     def update_handler(update_object):
         try:
-            if(update_object.updates[1].message.to_id.channel_id==from1):
+            id=update_object.updates[1].message.to_id.channel_id
+            if(id==from1):
+                global msgToSend
+                msgToSend=update_object.updates[1].message.message
+                print(update_object.updates[1].message)
+            elif(id==from2):
                 global msgToSend
                 msgToSend=update_object.updates[1].message.message
                 print(update_object.updates[1].message)
