@@ -6,17 +6,25 @@ from telethon.errors import SessionPasswordNeededError
 from telethon.tl.types import UpdateShortChatMessage, UpdateShortMessage
 from telethon.utils import get_display_name
 import time
+from datetime import datetime
 
-
-from1=1130120557
+msgToSend=None
+#from1=1130120557
+#krajna-tesko je
+#from1=1106009365
+#from1 = 1118092698
+from1=1134996697
 from2=1145370905
 
 from1ID=0
 from2ID=0
 
 
-to1=1123059821
+#to1=1123059821
+to1=348509442
+#simke
 to1ID=0
+to1hash=-5299655350369332983
 
 def sprint(string, *args, **kwargs):
     """Safe Print (handle UnicodeEncodeErrors on some terminals)"""
@@ -48,12 +56,7 @@ def bytes_to_string(byte_count):
 
 
 class InteractiveTelegramClient(TelegramClient):
-    """Full featured Telegram client, meant to be used on an interactive
-       session to see what Telethon is capable off -
-       This client allows the user to perform some basic interaction with
-       Telegram through Telethon, such as listing dialogs (open chats),
-       talking to people, downloading media, and receiving updates.
-    """
+
     def __init__(self, session_user_id, user_phone, api_id, api_hash,
                  proxy=None):
         print_title('Initialization - Krajna')
@@ -115,6 +118,8 @@ class InteractiveTelegramClient(TelegramClient):
                     print("najden")
                     print(entities[x].id)
                     to1ID=x
+                    to1hash=entities[x].access_hash
+                    print(to1hash)
                 elif entities[x].id == from1 :
                     print("najden")
                     print(entities[x].id)
@@ -124,56 +129,13 @@ class InteractiveTelegramClient(TelegramClient):
                     print(entities[x].id)
                     from2ID = x
 
-                    #self.send_message(
-                     #   entities[x], 'shit works yo', link_preview=False)
-
-
-
-        total_count, messages, senders = self.get_message_history(
-                        entities[from1ID], limit=20)
-        messages_from1=messages
-        total_count, messages, senders = self.get_message_history(
-                        entities[from2ID], limit=20)
-        messages_from2=messages
-
-      #  for msg in messages_from1:
-       #     print(msg.message)
-        #    print('----------------')
-
-        time.sleep(5)
         while True:
-            total_count, messages, senders = self.get_message_history(
-                entities[from1ID], limit=20)
-            messages_from1_new = messages
+            global msgToSend
+            if(msgToSend is not None):
+                self.send_message(entities[to1ID], msgToSend)
+                msgToSend=None
+                print ('Message forwarded')
 
-            total_count, messages, senders = self.get_message_history(
-                entities[from2ID], limit=20)
-            messages_from2_new = messages
-
-            if(messages_from1[0].message != messages_from1_new[0].message):
-                print("TREBA JE SYNCAT!!")
-                start_writing=False
-                for msg in reversed(messages_from1_new):
-                    if(start_writing == True):
-                        self.send_message(
-                        entities[to1ID], msg.message, link_preview=False)
-                    if(msg.message==messages_from1[0].message):
-                        start_writing=True
-
-            messages_from1=messages_from1_new
-
-            if (messages_from2[0].message != messages_from2_new[0].message):
-                print("TREBA JE SYNCAT!!")
-                start_writing = False
-                for msg in reversed(messages_from2_new):
-                    if (start_writing == True):
-                        self.send_message(
-                            entities[to1ID], msg.message, link_preview=False)
-                    if (msg.message == messages_from2[0].message):
-                        start_writing = True
-            messages_from1=messages_from1_new
-
-            time.sleep(30)
 
 
 
@@ -231,12 +193,12 @@ class InteractiveTelegramClient(TelegramClient):
 
     @staticmethod
     def update_handler(update_object):
-        inf=True
-        if isinstance(update_object, UpdateShortMessage):
-            if update_object.out:
-                inf=True
-        elif isinstance(update_object, UpdateShortChatMessage):
-            if update_object.out:
-                inf=False
-            else:
-                inf=False
+        try:
+            if(update_object.updates[1].message.to_id.channel_id==from1):
+                global msgToSend
+                msgToSend=update_object.updates[1].message.message
+                print(update_object.updates[1].message)
+        except:
+            pass
+
+
